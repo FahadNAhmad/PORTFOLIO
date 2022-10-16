@@ -1,0 +1,36 @@
+Day 2_LeetCode SQL_Submission Student: Fahad Ahmad
+
+178. drop table if exists Scores;
+create table Scores (Id int, Score float);
+insert into Scores (Id, Score) values
+    (1,3.5),
+    (2,3.65),
+    (3,4.0),
+    (4,3.85),
+    (5,4.0),
+    (6,3.65);
+
+Select score, DENSE_RANK() OVER(ORDER BY score Desc) as 'rank'
+FROM Scores
+
+-Used Dense_Rank() instead of Rank() as doesn't skip positions after equal rankings.
+
+
+Q585.
+SELECT SUM(TIV_2016)
+FROM insurance a
+LEFT OUTER JOIN
+(SELECT LAT, LON 
+FROM insurance  
+GROUP BY LAT, LON
+Having COUNT(*) > 1) b
+ON a.LAT = b.LAT and a.LON = b.LON
+LEFT OUTER JOIN
+(SELECT TIV_2015
+FROM insurance 
+GROUP BY TIV_2015
+HAVING COUNT(*)> 1) c
+ON a.TIV_2015 = c.TIV_2015
+
+-joined two tables each with criteria, with main table, to get SUM(TIV_2016)
+
